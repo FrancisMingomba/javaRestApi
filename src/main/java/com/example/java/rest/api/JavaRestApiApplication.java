@@ -3,7 +3,7 @@ package com.example.java.rest.api;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.mongodb.client.MongoClient;
+//import com.mongodb.client.MongoClient;
 
 @SpringBootApplication
 public class JavaRestApiApplication {

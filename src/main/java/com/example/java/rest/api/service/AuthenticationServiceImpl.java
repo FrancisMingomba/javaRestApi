@@ -15,10 +15,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     public User signup(User userFromClientUser) throws DuplicateUserException {
-        if  (alreadyExists(userFromClientUser))
+        if  (alreadyExists(userFromClientUser)){
         throw new DuplicateUserException(" User already exists!!!!");
-    
-
+     }
     return this.userRepository.save(userFromClientUser);
     
     }

@@ -12,5 +12,5 @@ import lombok.Data;
 
 public class ErrorMassage {
       private HttpStatus status;
-      private String message;  
+      private String message;
 }

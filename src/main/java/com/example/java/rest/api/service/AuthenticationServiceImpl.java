@@ -1,5 +1,12 @@
 package com.example.java.rest.api.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 //import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -40,6 +47,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 BCrypt.gensalt(10));
         return hashedPassword;
 
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+
+        Iterable<User> userIdb = this.userRepository.findAll();
+        List<User> data = convertUsersToList(userIdb);
+        return data;
+
+    }
+
+    private List<User> convertUsersToList(Iterable<User> users) {
+        return StreamSupport.stream(users.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
 }

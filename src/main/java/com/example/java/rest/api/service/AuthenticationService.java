@@ -1,6 +1,6 @@
 package com.example.java.rest.api.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.example.java.rest.api.error.DuplicateUserException;
 import com.example.java.rest.api.model.User;
@@ -9,5 +9,7 @@ import com.example.java.rest.api.model.User;
 public interface AuthenticationService {
     
     public User signup(User user) throws DuplicateUserException;
+
+    List<User> getAllUsers();
 
 }

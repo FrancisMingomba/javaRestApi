@@ -1,7 +1,13 @@
 package com.example.java.rest.api.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.java.rest.api.error.DuplicateUserException;
 import com.example.java.rest.api.model.User;
@@ -26,4 +32,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private boolean alreadyExists(User user) {
         return this.userRepository.findUserByEmail(user.getEmail()) != null;
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        Iterable<User> userIdb = this.userRepository.findAll();
+        List<User> data = convertUsersToList(userIdb);
+        return data;
+
+    }
+
+    private List<User> convertUsersToList(Iterable<User> users) {
+        return StreamSupport.stream(users.spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
 }

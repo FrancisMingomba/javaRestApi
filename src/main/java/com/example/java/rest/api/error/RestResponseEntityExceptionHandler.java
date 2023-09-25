@@ -19,6 +19,12 @@ public class RestResponseEntityExceptionHandler extends  ResponseEntityException
         return badRequest(exception.getMessage());
     }
 
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<String> FileNotFoundException(DuplicateUserException exception,
+        WebRequest request) {
+      return badRequest(exception.getMessage());
+    }
+
       private ResponseEntity<String> badRequest(String message) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(message);

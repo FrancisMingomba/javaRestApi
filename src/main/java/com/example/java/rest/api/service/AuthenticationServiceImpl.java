@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import com.example.java.rest.api.error.DuplicateUserException;
 import com.example.java.rest.api.model.User;
@@ -15,14 +14,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordIncryption passwordIncryption;
 
     public User signup(User userFromClientUser) throws DuplicateUserException {
         if (alreadyExists(userFromClientUser)) {
             throw new DuplicateUserException(" User already exists!!!!");
         }
 
-        String passwordg = password(userFromClientUser);
-        userFromClientUser.setPassword(passwordg);
+        String password = passwordIncryption.password(userFromClientUser);
+        userFromClientUser.setPassword(password);
 
         return this.userRepository.save(userFromClientUser);
 
@@ -30,14 +31,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private boolean alreadyExists(User user) {
         return this.userRepository.findUserByEmail(user.getEmail()) != null;
-    }
-
-    public String password(User user) {
-
-        String hashedPassword = BCrypt.hashpw(user.getPassword(),
-                BCrypt.gensalt(10));
-        return hashedPassword;
-
     }
 
     @Override

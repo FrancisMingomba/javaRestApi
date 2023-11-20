@@ -44,6 +44,8 @@
 </dependency>
 
 
+
+
 	</dependencies>
 
 	<build>
@@ -61,6 +63,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<fileName>order-service</fileName>
 	</build>
 
 </project>

@@ -9,4 +9,6 @@ public interface AuthenticationService {
     public User signup(User user) throws DuplicateUserException;
 
     public List<User> getAllUsers();
+
+    public List<User> getAllUsersByEmail();
 }
